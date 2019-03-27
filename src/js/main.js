@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     var map;
 
-    d3.csv("/data/travel.csv", function(error, data){
+    d3.csv("src/data/travel.csv", function(error, data){
         var totalCountry = 0;
         var totalCities = 0;
         var mapdata = {};
