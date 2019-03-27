@@ -1,3 +1,18 @@
 /* #container{
-    height: 600px;
+    padding-bottom: 10%;
+    border: 2em black;
 } */
+
+#summary{
+    font-family: Lora, arial, helvetica, ariel, sans-serif;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+#countries{
+    background-color: #fab1a0;
+}
+
+#cities{
+    background-color: #00b894;
+}
