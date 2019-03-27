@@ -1,6 +1,6 @@
 #!/bin/bash
 npm install
 
-rsync --rtv src /var/www/mytravel-maps/
-rsync --rtv node_modules /var/www/mytravel-maps/
-rsync --rtv index.html /var/www/mytravel-maps/
+rsync -rtv src /var/www/mytravel-maps/
+rsync -rtv node_modules /var/www/mytravel-maps/
+rsync -rtv index.html /var/www/mytravel-maps/
