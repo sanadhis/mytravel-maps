@@ -1,18 +1,26 @@
-/* #container{
-    padding-bottom: 10%;
-    border: 2em black;
-} */
+#container{
+}
 
-#summary{
+#copyright{
+    font-size: 25%;
+}
+
+.summary{
     font-family: Lora, arial, helvetica, ariel, sans-serif;
     font-size: 200%;
     font-weight: bold;
+    margin-bottom: 1%;
 }
 
-#countries{
-    background-color: #fab1a0;
+.subsummary{
+    font-size: 100%;
 }
 
-#cities{
+.info{
+    background-color: #a29bfe;
+}
+
+.btn-back{
     background-color: #00b894;
+    border-color: #00b894;
 }

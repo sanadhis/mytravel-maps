@@ -36,6 +36,12 @@ $(document).ready(function(){
         });
     })
 
+    // set current timestamp
+    var today = new Date();
+    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    $("#now").text(today.toString())
+
     // resize with jQuery
     $(window).on('resize', function() {
         map.resize();
