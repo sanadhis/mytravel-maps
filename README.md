@@ -1,2 +1,7 @@
 # mytravel-maps
-A project to highlight my travelling journeys
+A project to highlight my tavell journeys
+
+## Dependencies
+```bash
+yarn
+```
