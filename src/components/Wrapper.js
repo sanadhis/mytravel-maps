@@ -7,7 +7,7 @@ import * as d3 from 'd3';
 import data from '../assets/data/travel.csv';
 
 class Wrapper extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             mapdata: {},
@@ -17,28 +17,28 @@ class Wrapper extends Component {
     }
 
     componentDidMount() {
-		d3.csv(data, (error, data) => {
+        d3.csv(data, (error, data) => {
             let mapdata = {};
             let totalCities = 0;
-            let totalCountries = 0; 
-			data.forEach((d) => {
-				mapdata[d.country] = {
-					fillKey: 'VISITED',
-					cities: d.cities,
+            let totalCountries = 0;
+            data.forEach((d) => {
+                mapdata[d.country] = {
+                    fillKey: 'VISITED',
+                    cities: d.cities,
                 }
                 totalCountries += 1
                 totalCities += d.cities.split(",").length
-			});
-			this.setState({
+            });
+            this.setState({
                 mapdata: mapdata,
                 totalCities: totalCities,
                 totalCountries: totalCountries,
             })
-		})
+        })
     }
 
     render() {
-        const totalCities  = this.state.totalCities;
+        const totalCities = this.state.totalCities;
         const totalCountries = this.state.totalCountries;
         const mapdata = this.state.mapdata
 
