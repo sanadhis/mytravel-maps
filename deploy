@@ -2,7 +2,7 @@
 yarn
 
 if [ $? -eq 0 ] ; then
-    npm run build
+    GENERATE_SOURCEMAP=false yarn build
     rsync -rtv build/* /var/www/mytravel-maps/
 else
     echo "Please check yarn dependencies"
