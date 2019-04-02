@@ -3,6 +3,9 @@ import React from 'react';
 import Datamaps from 'datamaps';
 import '../assets/css/Map.css';
 
+import * as d3 from 'd3';
+import data from '../assets/data/minicountries.csv';
+
 const MAP_CLEARING_PROPS = [
     'height', 'scope', 'setProjection', 'width'
 ];
@@ -33,7 +36,8 @@ export default class Map extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {}
+            data: {},
+            bubbleData: {}
         }
         this.resizeMap = this.resizeMap.bind(this);
     }
@@ -42,6 +46,22 @@ export default class Map extends React.Component {
         if (this.props.responsive) {
             window.addEventListener('resize', this.resizeMap);
         }
+        d3.csv(data, (error, data) => {
+            var miniCountries = []
+            data.forEach((d) => {
+                miniCountries.push({
+                    country: d.country,
+                    radius: 8,
+                    latitude: d.latitude,
+                    fillKey: 'VISITED',
+                    longitude: d.longitude,
+                })
+            });
+            this.setState({
+                bubbleData: miniCountries
+            })
+            this.updateBubble()
+        })
     }
 
     componentWillReceiveProps(newProps) {
@@ -130,6 +150,19 @@ export default class Map extends React.Component {
             map.labels();
         }
 
+    }
+
+    updateBubble(){
+        const bubblesData = this.state.bubbleData;
+        const map = this.map;
+
+        console.log(bubblesData)
+        map.bubbles(bubblesData, {
+            popupTemplate: function (geo, data) {
+                return ['<div class="hoverinfo">' + data.country,
+                '</div>'].join('');
+            }
+        })
     }
 
     resizeMap() {
