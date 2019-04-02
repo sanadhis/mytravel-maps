@@ -9,50 +9,43 @@ import data from '../assets/data/travel.csv';
 class Wrapper extends Component {
     constructor(props){
         super(props);
-
         this.state = {
-            data: []
+            mapdata: {},
+            totalCities: {},
+            totalCountries: {},
         }
-        
-        // this.getData = this.getData.bind(this);
     }
 
-    componentWillMount() {
-        this.getCsvData();
-    }
-
-    fetchCsv() {
-        // return d3.csv(data).then((data) => {
-        //     var totalCountry = 0;
-        //     var totalCities = 0;
-        //     var mapdata = {};
-        //     data.forEach(function(d){
-        //         totalCountry += 1
-        //         totalCities += d.cities.split(",").length
-        //         mapdata[d.country] = {
-        //             fillKey: 'VISITED',
-        //             cities: d.cities,
-        //         }
-        //     })
-        //     return mapdata;
-        // })
-    }
-
-    getData(result) {
-        this.setState({data: result})
-    }
-
-    async getCsvData() {
-        let data = await this.fetchCsv();
-
-        this.getData(data)
+    componentDidMount() {
+		d3.csv(data, (error, data) => {
+            let mapdata = {};
+            let totalCities = 0;
+            let totalCountries = 0; 
+			data.forEach((d) => {
+				mapdata[d.country] = {
+					fillKey: 'VISITED',
+					cities: d.cities,
+                }
+                totalCountries += 1
+                totalCities += d.cities.split(",").length
+			});
+			this.setState({
+                mapdata: mapdata,
+                totalCities: totalCities,
+                totalCountries: totalCountries,
+            })
+		})
     }
 
     render() {
+        const totalCities  = this.state.totalCities;
+        const totalCountries = this.state.totalCountries;
+        const mapdata = this.state.mapdata
+
         return (
             <div>
-                <Heading />
-                <Map />
+                <Heading totalCities={totalCities} totalCountries={totalCountries}/>
+                <Map mapdata={mapdata}/>
                 <Footer />
             </div>
         );

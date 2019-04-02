@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Datamaps from 'datamaps';
 import '../assets/css/Map.css';
-import { readTravelData } from '../constants/main';
 
 const MAP_CLEARING_PROPS = [
 	'height', 'scope', 'setProjection', 'width'
@@ -33,6 +32,9 @@ export default class Map extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+            data: {}
+        }
 		this.resizeMap = this.resizeMap.bind(this);
 	}
 
@@ -40,19 +42,15 @@ export default class Map extends React.Component {
 		if (this.props.responsive) {
 			window.addEventListener('resize', this.resizeMap);
 		}
-		// })
-		// });
-		// {
-		// 	console.log("Yes")
-		// 	console.log(data)
-		// 	this.drawMap(data);
-        // };
 	}
 
 	componentWillReceiveProps(newProps) {
 		if (propChangeRequiresMapClear(this.props, newProps)) {
 			this.clear();
 		}
+		const { mapdata } = newProps 
+		this.setState({data: mapdata})
+		this.componentDidUpdate()
 	}
 
 	componentDidUpdate() {
@@ -76,7 +74,7 @@ export default class Map extends React.Component {
 		delete this.map;
 	}
 
-	drawMap(travelData) {
+	drawMap() {
 		const {
 			arc,
 			arcOptions,
@@ -90,6 +88,7 @@ export default class Map extends React.Component {
 		} = this.props;
 
 		let map = this.map;
+		let mapdata = this.state.data;
 
 		if (!map) {
 			map = this.map = new Datamaps({
@@ -107,11 +106,11 @@ export default class Map extends React.Component {
                     }
                 },
                 responsive: true,
-				travelData,
+				mapdata,
 				element: this.refs.container
 			});
 		} else {
-			map.updateChoropleth(data, updateChoroplethOptions);
+			map.updateChoropleth(mapdata, updateChoroplethOptions);
 		}
 
 		if (arc) {

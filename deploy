@@ -1,6 +1,9 @@
 #!/bin/bash
-npm install
+yarn
 
-rsync -rtv src /var/www/mytravel-maps/
-rsync -rtv node_modules /var/www/mytravel-maps/
-rsync -rtv index.html /var/www/mytravel-maps/
+if [ $? -eq 0 ] ; then
+    npm run build
+    rsync -rtv build/* /var/www/mytravel-maps/
+else
+    echo "Please check yarn dependencies"
+fi
