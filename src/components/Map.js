@@ -51,7 +51,7 @@ export default class Map extends React.Component {
             data.forEach((d) => {
                 miniCountries.push({
                     country: d.country,
-                    radius: 8,
+                    radius: 6,
                     latitude: d.latitude,
                     fillKey: 'VISITED',
                     longitude: d.longitude,
